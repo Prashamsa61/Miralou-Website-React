@@ -4,8 +4,9 @@ import {
   ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../context/cart';
 
-const Navbar = ({ cart }) => {
+const Navbar = () => {
   const links = [
     {
       label: 'Home',
@@ -29,6 +30,8 @@ const Navbar = ({ cart }) => {
     },
   ];
 
+  const {cart} =useCart;
+  
   return (
     <header className='container mx-auto px-4 lg:px-0'>
       <nav className='flex justify-between py-7'>

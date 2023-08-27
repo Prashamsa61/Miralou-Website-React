@@ -4,15 +4,17 @@ import {
   ChevronRightIcon,
   HeartIcon,
 } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../../api/axios';
 import Button from '../../components/Button/Button';
+import {useCart} from '../../context/cart';
 
-const ProductDetail = ({ cart, setCart }) => {
+const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
+  const {cart,setCart}=useCart;
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
