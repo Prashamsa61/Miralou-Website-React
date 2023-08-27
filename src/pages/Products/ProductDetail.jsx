@@ -14,7 +14,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
-  const {cart,setCart}=useCart;
+  const {cart,setCart}=useCart();
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
