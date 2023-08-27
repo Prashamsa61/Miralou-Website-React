@@ -1,20 +1,21 @@
-import { Tab } from '@headlessui/react';
+import { Tab } from "@headlessui/react";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   HeartIcon,
-} from '@heroicons/react/24/outline';
-import {useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from '../../api/axios';
-import Button from '../../components/Button/Button';
-import {useCart} from '../../context/cart';
+} from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "../../api/axios";
+import Button from "../../components/Button/Button";
+import { useCart } from "../../context/cart";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
 
-  const {cart,setCart}=useCart();
+  const { cart, setCart, addToCart } = useCart();
+
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -41,11 +42,8 @@ const ProductDetail = () => {
     }
   };
 
-  const addToCart = () => {
-    const productExists = cart.find((item) => item.product.id === product.id);
-    if (!productExists) {
-      setCart([...cart, { product: product, quantity: quantity }]);
-    }
+  const handleClick = () => {
+    addToCart(product, quantity);
   };
 
   useEffect(() => {
@@ -67,56 +65,56 @@ const ProductDetail = () => {
 
   return (
     <div>
-      <div className='container mx-auto'>
-        <div className='flex'>
-          <div className='w-1/2'>
+      <div className="container mx-auto">
+        <div className="flex">
+          <div className="w-1/2">
             <img
               src={product.image}
-              alt='product'
-              className='w-full object-cover object-center h-96'
+              alt="product"
+              className="w-full object-cover object-center h-96"
             />
           </div>
-          <div className='w-1/2 pl-4'>
-            <h1 className='text-3xl font-bold'>{product.name}</h1>
-            <p className='mt-2 text-gray-600'>$ {product.price}</p>
-            <p className='mt-5 text-stone-600'>
+          <div className="w-1/2 pl-4">
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <p className="mt-2 text-gray-600">$ {product.price}</p>
+            <p className="mt-5 text-stone-600">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi
               animi delectus quos ex veritatis, saepe repellat consequuntur quas
               placeat incidunt.
             </p>
-            <div className='my-5 py-4 border-y border-gray-400'>
-              <div className='flex gap-4'>
+            <div className="my-5 py-4 border-y border-gray-400">
+              <div className="flex gap-4">
                 <input
-                  type='number'
-                  className='border border-gray-500 w-20 py-2 text-center focus:outline-none'
+                  type="number"
+                  className="border border-gray-500 w-20 py-2 text-center focus:outline-none"
                   value={quantity}
                   onChange={handleChange}
                 />
-                <div className='border border-gray-400 py-3 px-5 flex gap-5'>
+                <div className="border border-gray-400 py-3 px-5 flex gap-5">
                   <button onClick={decrease}>
-                    <ChevronLeftIcon className='w-4 h-4 text-gray-400' />
+                    <ChevronLeftIcon className="w-4 h-4 text-gray-400" />
                   </button>
                   <button onClick={increase}>
-                    <ChevronRightIcon className='w-4 h-4 text-gray-400' />
+                    <ChevronRightIcon className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>
-                <Button onClick={addToCart}>Add to Cart</Button>
+                <Button onClick={handleClick}>Add to Cart</Button>
               </div>
             </div>
 
-            <div className='flex pt-4 gap-5 text-yellow-400'>
-              <HeartIcon className='w-6 h-6' />
+            <div className="flex pt-4 gap-5 text-yellow-400">
+              <HeartIcon className="w-6 h-6" />
               <p>Add to Wish list</p>
             </div>
           </div>
         </div>
         <div>
           <Tab.Group>
-            <Tab.List className='text-lg font-semibold'>
+            <Tab.List className="text-lg font-semibold">
               <Tab
                 className={({ selected }) =>
                   `p-3 ${
-                    selected ? 'text-gray-800 bg-gray-300' : 'text-gray-400'
+                    selected ? "text-gray-800 bg-gray-300" : "text-gray-400"
                   }`
                 }
               >
@@ -125,7 +123,7 @@ const ProductDetail = () => {
               <Tab
                 className={({ selected }) =>
                   `p-3 ${
-                    selected ? 'text-gray-800 bg-gray-300' : 'text-gray-400'
+                    selected ? "text-gray-800 bg-gray-300" : "text-gray-400"
                   }`
                 }
               >
@@ -133,12 +131,12 @@ const ProductDetail = () => {
               </Tab>
             </Tab.List>
             <Tab.Panels>
-              <Tab.Panel className='bg-gray-300 pl-10'>
+              <Tab.Panel className="bg-gray-300 pl-10">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
                 maxime illum quibusdam veritatis rem odit? Ducimus tenetur
                 aliquam dolores sit.
               </Tab.Panel>
-              <Tab.Panel className='bg-gray-300 pl-10'>Reviews</Tab.Panel>
+              <Tab.Panel className="bg-gray-300 pl-10">Reviews</Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>
